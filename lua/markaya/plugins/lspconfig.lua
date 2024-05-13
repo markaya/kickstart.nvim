@@ -19,6 +19,7 @@ return {
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
+          local opts = { buffer = event.buf }
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
@@ -59,6 +60,16 @@ return {
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+          -- NOTE: Primagean
+          vim.keymap.set('i', '<C-h>', function()
+            vim.lsp.buf.signature_help()
+          end, opts)
+          map('<space>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace folder [A]dd')
+          map('<space>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace folder [R]emove')
+          map('<space>wl', function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+          end, '[W]orkspace folders, [L]ist')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
