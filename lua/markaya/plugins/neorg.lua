@@ -8,6 +8,7 @@ return {
     require('neorg').setup {
       load = {
         ['core.defaults'] = {},
+        ['core.summary'] = {},
         ['core.concealer'] = {
           config = {
             icon_preset = 'diamond',
@@ -17,12 +18,15 @@ return {
           config = {
             workspaces = {
               task_manager = '~/neorg_notes/task_manager',
+              literature = '~/neorg_notes/literature',
             },
             default_workspace = 'task_manager',
           },
         },
       },
     }
+
+    local group = vim.api.nvim_create_augroup('neorg-group', { clear = true })
 
     vim.keymap.set('n', '<leader>ng', function()
       vim.cmd [[Neorg index]]
@@ -34,6 +38,7 @@ return {
 
     vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
       pattern = { '*.norg' },
+      group = group,
       command = 'set conceallevel=3 concealcursor=n',
     })
   end,
