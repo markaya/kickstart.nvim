@@ -132,6 +132,7 @@ return {
           -- capabilities = {},
           settings = {
             Lua = {
+              runtime = { version = 'LuaJIT' },
               completion = {
                 callSnippet = 'Replace',
               },
@@ -145,6 +146,7 @@ return {
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
+        'lua_ls',
         'stylua', -- Used to format Lua code
         'rust_analyzer',
         'gopls',
@@ -152,6 +154,7 @@ return {
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        ensure_installed = { 'lua_ls' },
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}

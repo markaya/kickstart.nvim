@@ -6,7 +6,7 @@ vim.keymap.set('v', 'K', ":m '>-2<CR>gv=gv", { desc = 'Move highlighted line dow
 -- Primagean kemap to save your pasted text inside buffer after you paste it over highlighted text
 -- This usuaslly causes highlighted text to be deleted which is them moved to buffer
 -- Remap is useful when changing some text on multiple places using same text
--- vim.keymap.set('x', '<leader>p>', "\"_dP")
+vim.keymap.set('x', '<leader>p', '"_dP')
 
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Move half page down and center cursor' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Move half page up and center cursor' })
