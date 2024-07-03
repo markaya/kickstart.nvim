@@ -62,9 +62,10 @@ return {
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
           -- NOTE: Primagean
-          vim.keymap.set('i', '<C-h>', function()
+          vim.keymap.set('i', '<C-g>', function()
             vim.lsp.buf.signature_help()
-          end, opts)
+          end, vim.tbl_deep_extend('keep', opts, { desc = 'LSP: Signature Help' }))
+
           map('<space>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace folder [A]dd')
           map('<space>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace folder [R]emove')
           map('<space>wl', function()
