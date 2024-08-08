@@ -133,7 +133,6 @@ return {
           -- capabilities = {},
           settings = {
             Lua = {
-              runtime = { version = 'LuaJIT' },
               completion = {
                 callSnippet = 'Replace',
               },

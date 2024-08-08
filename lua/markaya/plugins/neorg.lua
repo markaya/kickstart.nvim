@@ -14,6 +14,7 @@ return {
             icon_preset = 'diamond',
           },
         },
+        ['core.export'] = {},
         ['core.dirman'] = {
           config = {
             workspaces = {
