@@ -21,6 +21,14 @@ vim.opt.showmode = false
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 --vim.opt.clipboard = 'unnamedplus'
+--
+
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+vim.opt.smartindent = true
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -34,6 +42,9 @@ vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
+
+-- line wrap
+vim.opt.colorcolumn = { 80, 120, 160 }
 
 -- Decrease update time
 vim.opt.updatetime = 250

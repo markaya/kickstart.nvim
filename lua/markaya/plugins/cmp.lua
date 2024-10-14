@@ -32,8 +32,28 @@ return {
       local cmp = require 'cmp'
 
       local luasnip = require 'luasnip'
+      local types = require 'luasnip.util.types'
 
-      luasnip.config.setup {}
+      luasnip.config.setup {
+        -- This tells Luasnip to remember to keep around the last snippet
+        -- you can jump back into it even if you move outside of the selection
+        history = true,
+
+        -- This one is cool cause if you have dynamic snippets, it updates as
+        -- you type!
+        update_events = { 'TextChanged', 'TextChangedI' },
+
+        -- Autosnippets
+        enable_autosnippets = true,
+
+        ext_opts = {
+          [types.choiceNode] = {
+            active = {
+              virt_text = { { '<-', 'Error' } },
+            },
+          },
+        },
+      }
 
       local s = luasnip.snippet
       local t = luasnip.text_node
