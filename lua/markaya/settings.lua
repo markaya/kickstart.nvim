@@ -88,3 +88,10 @@ vim.api.nvim_create_autocmd('textyankpost', {
     vim.highlight.on_yank()
   end,
 })
+
+function GoToLinkDefinition()
+  vim.fn.search('\\[\\[', 'W')
+  vim.cmd 'normal gd'
+end
+
+vim.api.nvim_create_user_command('FindAndGoToDefinition', GoToLinkDefinition, {})
