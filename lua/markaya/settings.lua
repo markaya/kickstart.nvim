@@ -5,6 +5,9 @@ vim.g.have_nerd_font = true
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 --  For more options, you can see `:help option-list`
+--
+
+vim.opt.clipboard = 'unnamedplus'
 
 vim.opt.termguicolors = true
 

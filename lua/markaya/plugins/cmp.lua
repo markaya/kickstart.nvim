@@ -30,7 +30,6 @@ return {
     },
     config = function()
       local cmp = require 'cmp'
-
       local luasnip = require 'luasnip'
       local types = require 'luasnip.util.types'
 
@@ -55,41 +54,7 @@ return {
         },
       }
 
-      local s = luasnip.snippet
-      local t = luasnip.text_node
-      local i = luasnip.insert_node
-      local extras = require 'luasnip.extras'
-      local fmt = require('luasnip.extras.fmt').fmt
-      local rep = extras.rep
-      luasnip.add_snippets('lua', {
-        s(
-          'objectNew',
-          fmt(
-            [[
-          {} = {{}}
-
-          function {}:new({})
-            local newObj = {{}}
-            self.__index = self
-            return setmetatable(newObj, self)
-          end
-            ]],
-            {
-              i(1, 'Obj_name'),
-              rep(1),
-              i(2, 'args'),
-            }
-          )
-        ),
-      })
-      -- i(1),
-      -- t ' = {} \n\n',
-      -- t 'function ',
-      -- rep(1),
-      -- t ':new(',
-      -- i(2, 'args'),
-      -- t ')\n',
-      -- t 'end',
+      require('luasnip.loaders.from_lua').load { paths = { '~/.config/nvim/lua/markaya/snippets' } }
 
       cmp.setup {
         snippet = {
@@ -133,6 +98,14 @@ return {
               luasnip.jump(-1)
             end
           end, { 'i', 's' }),
+
+          ['<c-o>'] = cmp.mapping(function()
+            if luasnip.choice_active() then
+              luasnip.change_choice(1)
+            end
+          end, { 'i', 's' }),
+
+          --         vim.keymap.set('n', '<leader>rs', '<cmd>source ~/.config/nvim/lua/markaya/snippets/snippets.lua<CR>', { desc = '[R]eload [S]nippets' }),
 
           -- for more advanced luasnip keymaps (e.g. selecting choice nodes, expansion) see:
           --    https://github.com/l3mon4d3/luasnip?tab=readme-ov-file#keymaps
