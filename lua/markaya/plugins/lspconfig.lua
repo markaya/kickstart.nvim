@@ -6,10 +6,17 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       { 'j-hui/fidget.nvim', opts = {} },
-
-      -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
-      -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      {
+        'folke/lazydev.nvim',
+        ft = 'lua', -- only load on lua files
+        opts = {
+          library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+          },
+        },
+      },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -126,7 +133,6 @@ return {
         -- clangd = {},
         gopls = {},
         -- pyright = {},
-        rust_analyzer = {},
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -148,14 +154,14 @@ return {
       vim.list_extend(ensure_installed, {
         'lua_ls',
         'stylua', -- Used to format Lua code
-        'rust_analyzer',
         'gopls',
         'markdownlint-cli2',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls' },
+        automatic_installation = {},
+        ensure_installed = { 'lua_ls', 'gopls' },
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
