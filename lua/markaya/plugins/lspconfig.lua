@@ -133,6 +133,17 @@ return {
         -- clangd = {},
         gopls = {},
         -- pyright = {},
+        -- TODO: To be removed once project is updated
+        golangci_lint_ls = {
+          cmd = {
+            'golangci-lint',
+            'run',
+            '--output.json.path',
+            'stdout',
+            '--show-stats=false',
+            '--issues-exit-code=1',
+          },
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},

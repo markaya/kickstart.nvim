@@ -29,3 +29,24 @@ ls.add_snippets('lua', {
     )
   ),
 })
+
+-- NOTE: Go Snippets
+ls.add_snippets('go', {
+  s(
+    'ifi',
+    fmt(
+      [[
+      if _, {} := {}; {} != nil {{
+        return {}, {}
+      }}
+        ]],
+      {
+        i(1, 'err'),
+        i(2),
+        rep(1),
+        i(3),
+        rep(1),
+      }
+    )
+  ),
+})

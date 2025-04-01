@@ -12,8 +12,8 @@ If you experience any errors while trying to install kickstart, run `:checkhealt
 
 --]]
 
-local vimrc = vim.fn.stdpath 'config' .. '/vimrc.vim'
-vim.cmd.source(vimrc)
+-- local vimrc = vim.fn.stdpath 'config' .. '/vimrc.vim'
+-- vim.cmd.source(vimrc)
 
 require 'markaya'
 
