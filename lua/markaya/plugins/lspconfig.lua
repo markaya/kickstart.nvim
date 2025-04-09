@@ -2,10 +2,8 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
-      'williamboman/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
       { 'j-hui/fidget.nvim', opts = {} },
+      { 'saghen/blink.cmp' },
       {
         'folke/lazydev.nvim',
         ft = 'lua', -- only load on lua files
@@ -18,7 +16,33 @@ return {
         },
       },
     },
-    config = function()
+    opts = {
+      servers = {
+        lua_ls = {},
+        gopls = {},
+        golangci_lint_ls = {
+          init_options = {
+            command = {
+              'golangci-lint',
+              'run',
+              '--output.json.path',
+              'stdout',
+              '--show-stats=false',
+              '--issues-exit-code=1',
+            },
+          },
+        },
+      },
+    },
+    config = function(_, opts)
+      local lspconfig = require 'lspconfig'
+      for server, config in pairs(opts.servers) do
+        -- passing config.capabilities to blink.cmp merges with the capabilities in your
+        -- `opts[server].capabilities, if you've defined it
+        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
+      end
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -119,68 +143,6 @@ return {
           end
         end,
       })
-
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-
-      --  Add any additional override configuration in the following tables. Available keys are:
-      --  - cmd (table): Override the default command used to start the server
-      --  - filetypes (table): Override the default list of associated filetypes for the server
-      --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-      --  - settings (table): Override the default settings passed when initializing the server.
-      --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      local servers = {
-        -- clangd = {},
-        gopls = {},
-        -- pyright = {},
-        -- TODO: To be removed once project is updated
-        golangci_lint_ls = {
-          cmd = {
-            'golangci-lint',
-            'run',
-            '--output.json.path',
-            'stdout',
-            '--show-stats=false',
-            '--issues-exit-code=1',
-          },
-        },
-        lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ...},
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
-      }
-
-      require('mason').setup()
-
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'lua_ls',
-        'stylua', -- Used to format Lua code
-        'gopls',
-        'markdownlint-cli2',
-      })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
-      require('mason-lspconfig').setup {
-        automatic_installation = {},
-        ensure_installed = { 'lua_ls', 'gopls' },
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
     end,
   },
 }

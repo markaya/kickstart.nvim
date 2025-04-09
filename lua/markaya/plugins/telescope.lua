@@ -21,8 +21,14 @@ return {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          fzf = {},
         },
       }
+
+      -- https://www.youtube.com/watch?v=xdXE1tOT-qg&list=PLep05UYkc6wTyBe7kPjQFWVXTlhKeQejM&index=11
+      -- On this video there  is a tutorial how to create live multigrep to filter files over
+      -- multiple arguments
+      -- e.g. .lua[  ]telescope -- will search all .lua files with telescope in them
 
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
