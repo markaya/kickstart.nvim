@@ -25,3 +25,16 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'open diagn
 
 vim.keymap.set('n', '<leader>zd', '_f[lrx', { desc = 'toggle checkbox done' })
 vim.keymap.set('n', '<leader>zn', '_f[lr ', { desc = 'toggle checkbox not done' })
+
+-- c for quicklist
+vim.keymap.set('n', '<M-j>', '<cmd>cnext<CR>', { desc = 'quicklist next item' })
+vim.keymap.set('n', '<M-k>', '<cmd>cprev<CR>', { desc = 'quicklist next item' })
+--cclose closes
+
+--terminal options
+vim.keymap.set('n', '<space>to', function()
+  vim.cmd.vnew()
+  vim.cmd.term()
+  vim.cmd.wincmd 'J'
+  vim.api.nvim_win_set_height(0, 15)
+end)

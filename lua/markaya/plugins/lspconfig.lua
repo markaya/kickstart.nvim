@@ -20,6 +20,7 @@ return {
       servers = {
         lua_ls = {},
         gopls = {},
+        pyright = {},
         golangci_lint_ls = {
           init_options = {
             command = {
