@@ -17,9 +17,10 @@ vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Center view when moving to  .instanc
 -- When pressing Esc key, also remove highlighted text from search.
 vim.keymap.set('n', '<esc>', '<cmd>nohlsearch<cr>')
 
--- diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'go to previous [d]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'go to next [d]iagnostic message' })
+vim.diagnostic.config { jump = { float = true } }
+-- diagnostic keymaps -  goto_prev & goto_next are deprecated so I added line above
+-- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'go to previous [d]iagnostic message' })
+-- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'go to next [d]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'show diagnostic [e]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'open diagnostic [q]uickfix list' })
 
