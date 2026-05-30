@@ -112,7 +112,9 @@ telnet() {
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # alias mgo="mgo -address=\":4040\" -dsn=\"$HOME/bin/.mgo/meinappf.db?_busy_timeout=5000&_journal_mode=WAL\" -tls=$HOME/bin/.mgo/"
+#
 
+alias nv="nvim"
 export PATH=$PATH:$HOME/bin
 
 # Add for go protoc
